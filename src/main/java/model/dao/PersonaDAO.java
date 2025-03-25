@@ -2,6 +2,7 @@ package model.dao;
 
 import model.entities.Persona;
 import org.hibernate.Session;
+import utility.exceptions.ObjectNotFoundException;
 
 import java.util.List;
 
@@ -14,27 +15,37 @@ public class PersonaDAO implements iPersonaDAO
 		this.session = session;
 	}
 
-	@Override
 	public Persona findById(Long id)
 	{
-		return null;
+		session.beginTransaction();
+		Persona res = session.get(Persona.class,id);
+		session.getTransaction().commit();
+		return res;
 	}
 
-	@Override
 	public List<Persona> findAll()
 	{
-		return List.of();
+		session.beginTransaction();
+		List<Persona> res = session.createQuery("SELECT p FROM Persona p", Persona.class).getResultList();
+		session.getTransaction().commit();
+		return  res;
 	}
 
-	@Override
-	public void save(Persona p)
+	public void save(Persona s)
 	{
-
+		session.beginTransaction();
+		session.save(s);
+		session.getTransaction().commit();
 	}
 
-	@Override
 	public void delete(Long id)
 	{
+		session.beginTransaction();
+		Persona toDelete =findById(id);
+		if(toDelete==null)
+			throw new ObjectNotFoundException("Non posso cancellare qualcosa che non esiste");
 
+		session.delete(toDelete);
+		session.getTransaction().commit();
 	}
 }

@@ -13,8 +13,16 @@ public class TraduttoreItaliano implements iTraduttore
 	public TraduttoreItaliano()
 	{
 		traduzioni.put("IN_NOME","Per favore inserisci il nome? grazie");
+		traduzioni.put("IN_ID","Inserisci ID");
 		traduzioni.put("IN_COGNOME","Mannaggia a te, dammi cognome");
 		traduzioni.put("IN_DOB","Mannaggia a te, dammi data nascita formato eu");
+		traduzioni.put("IN_COM","Inserisci Comando");
+		traduzioni.put("OUT_QUIT","Ciao ciao");
+		traduzioni.put("INV_CMD","Comando non valido");
+		traduzioni.put("INV_INS","Dati non validi");
+		traduzioni.put("VAL_INS","Complimenti, persona creata");
+		traduzioni.put("INV_ID","Devi mettere un numero");
+		traduzioni.put("PNF","Persona non trovata");
 	}
 
 	@Override
@@ -32,6 +40,13 @@ public class TraduttoreItaliano implements iTraduttore
 	@Override
 	public String produciStampaListaPersone(List<Persona> persone)
 	{
-		return "";
+		String res="Lista di persone:\n";
+		for(Persona p:persone)
+			res+="Nominativo: "+p.getNome()+" "+p.getCognome()+", dob: "+p.getDob()+"/n";
+
+		//Lista di persone
+		//Nominativo: Stefano Rubinetti, dob: 1995-08-27
+		//Nominativo: Claudio Costantino, dob: 1999-03-16
+		return res;
 	}
 }
